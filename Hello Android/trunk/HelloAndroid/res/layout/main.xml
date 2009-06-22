@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView android:id="@+id/dateDisplay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/GREEN"
+            android:text=""/>
+
+    <Button android:id="@+id/pickDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/BLUE" 
+            android:text="Change the date"/>
+            
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dip"
+        android:text="Add Work Days:"
+        android:textColor="@color/RED" 
+    />
+    
+    <Spinner 
+        android:id="@+id/spinner"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:drawSelectorOnTop="true"
+        android:prompt="@string/days_prompt"        
+    />
+    
+    
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dip"
+        android:text="Resulting Date:"
+        android:background="@color/GREEN"
+  		android:textColor="@color/BLACK" 
+        
+    />
+    
+      <TextView android:id="@+id/dateChangedDisplay"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:textColor="@color/WHITE"
+           android:text=""/>
+    
+    
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dip"
+        android:text="Resulting Day:"
+    />
+
+      <TextView android:id="@+id/dateChangedDisplayDayofWeek"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:textColor="@color/RED"
+           android:typeface="serif" 
+           android:textScaleX="2"
+           android:text=""/>
+       
+            
+</LinearLayout>
+
