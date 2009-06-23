@@ -2,14 +2,19 @@ package com.example.helloandroid;
 
 import java.util.Calendar;
 
+
+
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -17,6 +22,7 @@ public class HelloAndroid extends Activity {
 	
    /* Data Fields */
 	private TextView mDateDisplay, mDateChangedDisplay;
+	private EditText mEditBox;
 	private TextView mDateChangedDisplayDayofWeek;
 	private Button mPickDate;
     private int mYear;
@@ -27,7 +33,8 @@ public class HelloAndroid extends Activity {
     private int mDayChanged;
     private int mAddDays=5;
     private int mDayofWeek;
-    static final int DATE_DIALOG_ID = 0;
+    static final private int DATE_DIALOG_ID = 0;
+    static final private int CALCULATE_DATE = Menu.FIRST;
 
     
   
@@ -36,24 +43,27 @@ public class HelloAndroid extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //Inflate main.xml
-        setContentView(R.layout.main);
-
-        Spinner s = (Spinner) findViewById(R.id.spinner);
         
+        setContentView(R.layout.main);
+        
+        
+        /*
+        Spinner s = (Spinner) findViewById(R.id.spinner);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
                 this, R.array.days, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         s.setAdapter(adapter);
-        
+        */
        
 
         // capture our View elements
+        mEditBox = (EditText)findViewById(R.id.myEditText);
         mDateDisplay = (TextView) findViewById(R.id.dateDisplay);
         mPickDate = (Button) findViewById(R.id.pickDate);
-
         mDateChangedDisplay = (TextView) findViewById(R.id.dateChangedDisplay);
         mDateChangedDisplayDayofWeek = (TextView) findViewById(R.id.dateChangedDisplayDayofWeek);
+        
+        
         // add a click listener to the button
         mPickDate.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -84,6 +94,18 @@ public class HelloAndroid extends Activity {
         
           
     }
+    
+    /** This gets called When user hits "MENU" on Android */
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+      super.onCreateOptionsMenu(menu);      
+      MenuItem itemCalc = menu.add(0, CALCULATE_DATE, Menu.NONE, R.string.calculate);
+//      itemCalc.setIcon(R.drawable.beachw);
+      return true;
+    }
+    
+    
+    
     
     @Override
     protected Dialog onCreateDialog(int id) {

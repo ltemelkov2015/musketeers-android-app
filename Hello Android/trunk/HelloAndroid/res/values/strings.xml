@@ -3,6 +3,7 @@
     <string name="hello">Hello World, HelloAnrdoid!</string>
     <string name="app_name">Hello, Android</string>
     <string name="days_prompt">Choose days to add </string>
+    <string name="calculate">CALCULATE</string>
 		   
 	<color name="WHITE">#FFFFFF</color>
 	<color name="BLACK">#000000</color>	
