@@ -25,13 +25,14 @@
         android:textColor="@color/RED" 
     />
     
-    <Spinner 
-        android:id="@+id/spinner"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:drawSelectorOnTop="true"
-        android:prompt="@string/days_prompt"        
-    />
+      <EditText
+    android:id="@+id/myEditText"
+    android:layout_width="fill_parent" 
+    android:layout_height="wrap_content" 
+    android:text="0"
+  />
+    
+    
     
     
     <TextView
@@ -43,6 +44,9 @@
   		android:textColor="@color/BLACK" 
         
     />
+    
+    
+  
     
       <TextView android:id="@+id/dateChangedDisplay"
            android:layout_width="wrap_content"
@@ -56,12 +60,14 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dip"
         android:text="Resulting Day:"
+        android:background="@color/GREEN"
+  		android:textColor="@color/BLACK"
     />
 
       <TextView android:id="@+id/dateChangedDisplayDayofWeek"
            android:layout_width="wrap_content"
            android:layout_height="wrap_content"
-           android:textColor="@color/RED"
+           android:textColor="@color/WHITE"
            android:typeface="serif" 
            android:textScaleX="2"
            android:text=""/>
