@@ -4,18 +4,18 @@ import java.util.Calendar;
 
 
 
+
+
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.view.KeyEvent;
 import android.view.View;
-import android.widget.ArrayAdapter;
+import android.view.View.OnKeyListener;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 public class HelloAndroid extends Activity {
@@ -31,37 +31,31 @@ public class HelloAndroid extends Activity {
     private int mYearChanged;
     private int mMonthChanged;
     private int mDayChanged;
-    private int mAddDays=5;
+    private int mAddDays=0;
     private int mDayofWeek;
+    private Calendar c=null;//
     static final private int DATE_DIALOG_ID = 0;
-    static final private int CALCULATE_DATE = Menu.FIRST;
+    
 
     
-  
-    
-    /* Called when Object Activity first created */
+  /* Called when Object Activity first created */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         
         setContentView(R.layout.main);
-        
-        
-        /*
-        Spinner s = (Spinner) findViewById(R.id.spinner);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
-                this, R.array.days, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        s.setAdapter(adapter);
-        */
-       
-
-        // capture our View elements
+        //capture our View elements
         mEditBox = (EditText)findViewById(R.id.myEditText);
         mDateDisplay = (TextView) findViewById(R.id.dateDisplay);
         mPickDate = (Button) findViewById(R.id.pickDate);
         mDateChangedDisplay = (TextView) findViewById(R.id.dateChangedDisplay);
         mDateChangedDisplayDayofWeek = (TextView) findViewById(R.id.dateChangedDisplayDayofWeek);
+        c = Calendar.getInstance();//Get Current instance of calendar with current days
+        mYear = c.get(Calendar.YEAR);
+        mMonth = c.get(Calendar.MONTH);
+        mDay = c.get(Calendar.DAY_OF_MONTH);
+        
+        updateCalendar(mAddDays);
         
         
         // add a click listener to the button
@@ -70,24 +64,29 @@ public class HelloAndroid extends Activity {
                 showDialog(DATE_DIALOG_ID);
             }
         });
-
-        // get the current date
-        //final Calendar c = Calendar.getInstance();
-        Calendar c = Calendar.getInstance();        
         
-        mYear = c.get(Calendar.YEAR);
-        mMonth = c.get(Calendar.MONTH);
-        mDay = c.get(Calendar.DAY_OF_MONTH);
         
-        c.add(Calendar.DAY_OF_MONTH, mAddDays);
-        mYearChanged = c.get(Calendar.YEAR);
-        mMonthChanged = c.get(Calendar.MONTH);
-        mDayChanged = c.get(Calendar.DAY_OF_MONTH);
         
-        mDayofWeek = c.get(Calendar.DAY_OF_WEEK);
-
+      //Assign the KeyListener to the DPad button to add new items
+        mEditBox.setOnKeyListener(new OnKeyListener() {
+          public boolean onKey(View v, int keyCode, KeyEvent event) {
+            if (event.getAction() == KeyEvent.ACTION_DOWN)
+              if (keyCode == KeyEvent.KEYCODE_DPAD_CENTER) {
+            	  //Add days update code here
+            	  String s = mEditBox.getText().toString();
+            	  int add_days = Integer.parseInt(s);
+            	  mAddDays=add_days;
+                  updateCalendar(mAddDays);
+                  updateDisplay();
+                  updateChangedDisplay();
+                  updateChangedDisplayDayofWeek();
+               
+                return true; 
+              }
+            return false;
+          }
+        });
         
-        // display the current date
         updateDisplay();
         updateChangedDisplay();
         updateChangedDisplayDayofWeek();
@@ -95,19 +94,11 @@ public class HelloAndroid extends Activity {
           
     }
     
-    /** This gets called When user hits "MENU" on Android */
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-      super.onCreateOptionsMenu(menu);      
-      MenuItem itemCalc = menu.add(0, CALCULATE_DATE, Menu.NONE, R.string.calculate);
-//      itemCalc.setIcon(R.drawable.beachw);
-      return true;
-    }
+  
     
-    
-    
-    
-    @Override
+ /*When User clicks "pick date" , the date picker dialog will show up
+  */
+ @Override
     protected Dialog onCreateDialog(int id) {
         switch (id) {
         case DATE_DIALOG_ID:
@@ -175,31 +166,43 @@ public class HelloAndroid extends Activity {
     
     
  // the callback received when the user "sets" the date in the dialog
+    
     private DatePickerDialog.OnDateSetListener mDateSetListener =
             new DatePickerDialog.OnDateSetListener() {
 
                 public void onDateSet(DatePicker view, int year, 
                                       int monthOfYear, int dayOfMonth) {
-                    mYear = year;
+                    
+                	mYear = year;
                     mMonth = monthOfYear;
                     mDay = dayOfMonth;
-                    Calendar temp = Calendar.getInstance();
-                    temp.set(Calendar.YEAR, mYear);
-                    temp.set(Calendar.MONTH, mMonth);
-                    temp.set(Calendar.DAY_OF_MONTH, mDay);
-                    
-                    temp.add(Calendar.DAY_OF_MONTH, mAddDays);
-                    mYearChanged = temp.get(Calendar.YEAR);
-                    mMonthChanged = temp.get(Calendar.MONTH);
-                    mDayChanged = temp.get(Calendar.DAY_OF_MONTH);
-                    
-                    mDayofWeek = temp.get(Calendar.DAY_OF_WEEK);
-                    
-                    
-                    
+                    c.set(Calendar.YEAR, mYear);
+                    c.set(Calendar.MONTH, mMonth);
+                    c.set(Calendar.DAY_OF_MONTH, mDay);
+                    String s = mEditBox.getText().toString();
+              	    int add_days = Integer.parseInt(s);
+              	    mAddDays=add_days;
+                    updateCalendar(mAddDays);
                     updateDisplay();
                     updateChangedDisplay();
                     updateChangedDisplayDayofWeek();
                 }
             };
-}
+     
+            
+    private void updateCalendar(int days_offset){
+    	c.add(Calendar.DAY_OF_MONTH, days_offset);
+        mYearChanged = c.get(Calendar.YEAR);
+        mMonthChanged = c.get(Calendar.MONTH);
+        mDayChanged = c.get(Calendar.DAY_OF_MONTH);
+        mDayofWeek = c.get(Calendar.DAY_OF_WEEK);
+    	
+    }
+            
+ }
+
+
+
+
+
+

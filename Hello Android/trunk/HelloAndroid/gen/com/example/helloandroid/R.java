@@ -21,10 +21,7 @@ public final class R {
         public static final int WHITE=0x7f060000;
     }
     public static final class drawable {
-        public static final int beach=0x7f020000;
-        public static final int beacha=0x7f020001;
-        public static final int beachw=0x7f020002;
-        public static final int icon=0x7f020003;
+        public static final int icon=0x7f020000;
     }
     public static final class id {
         public static final int dateChangedDisplay=0x7f070003;
