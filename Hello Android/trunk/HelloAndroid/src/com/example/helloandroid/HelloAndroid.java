@@ -28,6 +28,13 @@ public class HelloAndroid extends Activity {
     private int mYear;
     private int mMonth;
     private int mDay;
+    
+    private int buffmYear;
+    private int buffmMonth;
+    private int buffmDay;
+    
+    
+    
     private int mYearChanged;
     private int mMonthChanged;
     private int mDayChanged;
@@ -54,9 +61,9 @@ public class HelloAndroid extends Activity {
         mYear = c.get(Calendar.YEAR);
         mMonth = c.get(Calendar.MONTH);
         mDay = c.get(Calendar.DAY_OF_MONTH);
-        
+        DateBuffer();
         updateCalendar(mAddDays);
-        
+       
         
         // add a click listener to the button
         mPickDate.setOnClickListener(new View.OnClickListener() {
@@ -73,13 +80,25 @@ public class HelloAndroid extends Activity {
             if (event.getAction() == KeyEvent.ACTION_DOWN)
               if (keyCode == KeyEvent.KEYCODE_DPAD_CENTER) {
             	  //Add days update code here
+            	  c.set(Calendar.YEAR, buffmYear);
+                  c.set(Calendar.MONTH, buffmMonth);
+                  c.set(Calendar.DAY_OF_MONTH, buffmDay);
+                  
             	  String s = mEditBox.getText().toString();
             	  int add_days = Integer.parseInt(s);
+            	  
             	  mAddDays=add_days;
-                  updateCalendar(mAddDays);
+            	  
+            	  
+            	  //c=null;
+            	 // c = Calendar.getInstance();
+            	  
+            	  
+            	  updateCalendar(mAddDays);
                   updateDisplay();
                   updateChangedDisplay();
                   updateChangedDisplayDayofWeek();
+                  
                
                 return true; 
               }
@@ -179,6 +198,7 @@ public class HelloAndroid extends Activity {
                     c.set(Calendar.YEAR, mYear);
                     c.set(Calendar.MONTH, mMonth);
                     c.set(Calendar.DAY_OF_MONTH, mDay);
+                    DateBuffer();//keep the currently set date for thr D button
                     String s = mEditBox.getText().toString();
               	    int add_days = Integer.parseInt(s);
               	    mAddDays=add_days;
@@ -186,6 +206,7 @@ public class HelloAndroid extends Activity {
                     updateDisplay();
                     updateChangedDisplay();
                     updateChangedDisplayDayofWeek();
+                    
                 }
             };
      
@@ -198,6 +219,12 @@ public class HelloAndroid extends Activity {
         mDayofWeek = c.get(Calendar.DAY_OF_WEEK);
     	
     }
+    
+  private void DateBuffer(){
+	  buffmYear=mYear;
+	  buffmMonth=mMonth;
+	  buffmDay=mDay; 
+  }
             
  }
 
