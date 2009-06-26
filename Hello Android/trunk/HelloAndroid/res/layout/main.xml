@@ -3,6 +3,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="vertical">
+    
 
     <TextView android:id="@+id/dateDisplay"
             android:layout_width="wrap_content"
@@ -25,15 +26,13 @@
         android:textColor="@color/RED" 
     />
     
-      <EditText
+    <EditText
     android:id="@+id/myEditText"
     android:layout_width="fill_parent" 
     android:layout_height="wrap_content" 
     android:text="0"
-  />
-    
-    
-    
+    android:inputType="number|numberSigned|numberDecimal"
+     />
     
     <TextView
         android:layout_width="fill_parent"
@@ -45,10 +44,7 @@
         
     />
     
-    
-  
-    
-      <TextView android:id="@+id/dateChangedDisplay"
+    <TextView android:id="@+id/dateChangedDisplay"
            android:layout_width="wrap_content"
            android:layout_height="wrap_content"
            android:textColor="@color/WHITE"
