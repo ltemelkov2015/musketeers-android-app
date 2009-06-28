@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<AbsoluteLayout android:id="@+id/AbsoluteLayout" 
+                android:layout_width="fill_parent" 
+                android:layout_height="fill_parent" 
+                xmlns:android="http://schemas.android.com/apk/res/android">
+    <TextView
+    android:text="StartDate : "
+    android:layout_width="90dip"
+    android:layout_height="50dip"
+    android:textSize="18sp"
+    android:layout_x="10dip"
+    android:layout_y="10dip"
+    />
+        
+    <TextView
+    android:id="@+id/TxtView_Start"
+    android:text="StartDate"
+    android:layout_width="200dip"
+    android:layout_height="50dip"
+    android:textSize="18sp"
+    android:layout_x="100dip"
+    android:layout_y="10dip"
+    />
+    
+    <DatePicker 
+    android:id="@+id/StartDate"
+    android:layout_width="wrap_content" 
+    android:layout_height="wrap_content" 
+    android:layout_x="10dip"
+    android:layout_y="60dip"
+    />
+
+    <EditText
+    android:id="@+id/TxtBox_WorkingDays"
+    android:layout_width="200dip"
+    android:layout_height="50dip"
+    android:text=""
+    android:textSize="18sp"
+    android:layout_x="10dip"
+    android:layout_y="200dip"
+    android:inputType="number"
+    />
+    
+    <TextView
+    android:text="Add Days"
+    android:layout_width="200dip"
+    android:layout_height="50dip"
+    android:textSize="18sp"
+    android:layout_x="220dip"
+    android:layout_y="210dip"
+    />
+    
+    <!--
+    <EditText
+    android:id="@+id/TxtBox_OffDays"
+    android:layout_width="200dip"
+    android:layout_height="50dip"
+    android:text="Off Days"
+    android:textSize="18sp"
+    android:layout_x="10dip"
+    android:layout_y="250dip"
+    />
+    -->
+    
+    <TextView
+    android:id="@+id/TxtView_Result"
+    android:text="DueDate"
+    android:layout_width="200dip"
+    android:layout_height="50dip"
+    android:textSize="18sp"
+    android:layout_x="10dip"
+    android:layout_y="325dip"
+    />
+
+</AbsoluteLayout>
