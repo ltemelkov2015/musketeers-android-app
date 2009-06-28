@@ -9,11 +9,11 @@
  * Notes:
  * --Reduced  Calendar objects 
  * --Reduced EditText KeyListener code
- * the "compute_day_date(Calendar c, int projectdays)" 
+ * --the "compute_day_date(Calendar c, int projectdays)" 
  *       the third argument in this method is omitted, added case statement for faster execution
  * --On date changed code fixed so that date picker works up/down to handle properly the dates 
  * --When Edit Text Box is empty , going up the date picker , app crashes -  fixed
- *  
+ * --When user enters "0" the result Due Date lags by 1 day-fixed!
  */
 
 
@@ -94,8 +94,11 @@ public class DueDate extends Activity {
 						if (editText.equals(WorkingDays)) {
 							try {
 								projectdays = Integer.valueOf(editText.getText().toString());
-								updatedc = compute_day_date(cal,projectdays); 
-								Result.setText(String.format("%1$ta, %1$te %1$tb %1$ty", updatedc));
+								if(projectdays!=0)
+								  {
+								    updatedc = compute_day_date(cal,projectdays); 
+								    Result.setText(String.format("%1$ta, %1$te %1$tb %1$ty", updatedc));
+								  }
 							} catch (Throwable t) {
 								Log.e(TAG, t.getMessage());
 								return false;
@@ -205,40 +208,46 @@ public class DueDate extends Activity {
 		    public void onDateChanged(DatePicker view, int year,
                     int monthOfYear, int dayOfMonth) {
 		    	
-		       //set calendar according to the datePicker object
-		    	cal.set(year, monthOfYear,dayOfMonth);
-		    	
-		    	/* Check to see if we are going upwards the date picker or downwards*/
+		       cal.set(year, monthOfYear,dayOfMonth);
 		    	__getCurrentCalendar();
 		    	int dayofweek = cal.get(Calendar.DAY_OF_WEEK);
 		    	if(mDay > mDayold)
-		    	{
-		            if (dayofweek == Calendar.SATURDAY) 
-                              cal.add(Calendar.DATE, SAT_OFFSET);
-                    else if (dayofweek == Calendar.SUNDAY) 
-                	          cal.add(Calendar.DATE, SUN_OFFSET);
-		    	
-		    	}
-                 else if(mDay < mDayold){
-                     if(dayofweek==Calendar.SATURDAY)
-                              cal.add(Calendar.DATE,SAT_OFFSET_DOWN);
-                     else if(dayofweek==Calendar.SUNDAY)
-                        	  cal.add(Calendar.DATE,SUN_OFFSET_DOWN);
-                        	
-                     }
-                 else ; //mDay==mDayold
-		    	
+		    	      
+		    			         {
+		                              if (dayofweek == Calendar.SATURDAY) 
+                                              cal.add(Calendar.DATE, SAT_OFFSET);
+                                      else if (dayofweek == Calendar.SUNDAY) 
+                	                          cal.add(Calendar.DATE, SUN_OFFSET);
+                                          
+		    			         }
+		    			
+                else if(mDay < mDayold)
+                                 {
+                    	   
+                                                  if(dayofweek==Calendar.SATURDAY)
+                                                         cal.add(Calendar.DATE,SAT_OFFSET_DOWN);
+                                                  else if(dayofweek==Calendar.SUNDAY)
+                        	                              cal.add(Calendar.DATE,SUN_OFFSET_DOWN);
+                                 }
+                    	  
+                      
+                      else ; //mDay==mDayold.This case will happen during On create - only the first time
+		    		
+		   
 		    	//Old dates has to be equal to the current dates so we can start comparing again
+		       __getCurrentCalendar();
 		    	mYearold=mYear;
 		        mMonthold=mMonth;
 		        mDayold=mDay;
                         	 
-                        
-                view.updateDate(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH));
+                
+		        view.updateDate(mYear, mMonth, mDay);
                 StartDateText.setText(String.format("%1$ta, %1$te %1$tb %1$ty", cal));
                 Calendar cc;
                 //Once date is updated , calculate the due date on the fly
-                if(WorkingDays.getText().toString().equals(""))
+                if(WorkingDays.getText().toString().equals(""))   
+                	     Result.setText(String.format("%1$ta, %1$te %1$tb %1$ty", cal));
+                else if(Integer.valueOf(WorkingDays.getText().toString())==0)
                 	Result.setText(String.format("%1$ta, %1$te %1$tb %1$ty", cal));
                 else{
                     projectdays = Integer.valueOf(WorkingDays.getText().toString());
@@ -250,6 +259,7 @@ public class DueDate extends Activity {
 		    }			
 				
     };
+ 
     
     private void __getCurrentCalendar(){
     	mYear = cal.get(Calendar.YEAR);
