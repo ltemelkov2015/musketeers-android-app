@@ -18,7 +18,6 @@
 
 
 package com.motleymusketeers.duedate;
-
 import java.util.Calendar;
 import android.app.Activity;
 import android.os.Bundle;
@@ -41,8 +40,6 @@ public class DueDate extends Activity {
 	private Calendar cal;
 	private final int SAT_OFFSET = 2;
     private final int SUN_OFFSET = 1;
-    private final int SAT_OFFSET_DOWN =-1;//takes care when we go downwards the date picker
-    private final int SUN_OFFSET_DOWN =-2;
     private int mDay;
     private int mMonth;
     private int mYear;
@@ -203,45 +200,30 @@ public class DueDate extends Activity {
 	
 
         private DatePicker.OnDateChangedListener dateListen = 
-        new DatePicker.OnDateChangedListener(){
+             new DatePicker.OnDateChangedListener(){
             
-		    public void onDateChanged(DatePicker view, int year,
-                    int monthOfYear, int dayOfMonth) {
+		public void onDateChanged(DatePicker view, int year,
+                    int monthOfYear, int dayOfMonth){
 		    	
+		      int maxDays = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
 		       cal.set(year, monthOfYear,dayOfMonth);
 		    	__getCurrentCalendar();
 		    	int dayofweek = cal.get(Calendar.DAY_OF_WEEK);
-		    	if(mDay > mDayold)
-		    	      
-		    			         {
-		                              if (dayofweek == Calendar.SATURDAY) 
-                                              cal.add(Calendar.DATE, SAT_OFFSET);
-                                      else if (dayofweek == Calendar.SUNDAY) 
-                	                          cal.add(Calendar.DATE, SUN_OFFSET);
-                                          
-		    			         }
-		    			
-                else if(mDay < mDayold)
-                                 {
-                    	   
-                                                  if(dayofweek==Calendar.SATURDAY)
-                                                         cal.add(Calendar.DATE,SAT_OFFSET_DOWN);
-                                                  else if(dayofweek==Calendar.SUNDAY)
-                        	                              cal.add(Calendar.DATE,SUN_OFFSET_DOWN);
-                                 }
-                    	  
-                      
-                      else ; //mDay==mDayold.This case will happen during On create - only the first time
-		    		
-		   
-		    	//Old dates has to be equal to the current dates so we can start comparing again
+		    	
+		    	if (dayofweek == Calendar.SATURDAY) 
+                          cal.add(Calendar.DATE, SAT_OFFSET);
+                         
+		    	else if (dayofweek == Calendar.SUNDAY) 
+                          cal.add(Calendar.DATE, SUN_OFFSET);
+                          
+                //Old dates has to be equal to the current dates so we can start comparing again
 		       __getCurrentCalendar();
 		    	mYearold=mYear;
 		        mMonthold=mMonth;
 		        mDayold=mDay;
                         	 
                 
-		        view.updateDate(mYear, mMonth, mDay);
+		        //view.updateDate(mYear, mMonth, mDay);
                 StartDateText.setText(String.format("%1$ta, %1$te %1$tb %1$ty", cal));
                 Calendar cc;
                 //Once date is updated , calculate the due date on the fly
@@ -261,7 +243,7 @@ public class DueDate extends Activity {
     };
  
     
-    private void __getCurrentCalendar(){
+ private void __getCurrentCalendar(){
     	mYear = cal.get(Calendar.YEAR);
         mMonth = cal.get(Calendar.MONTH);
         mDay = cal.get(Calendar.DAY_OF_MONTH);
