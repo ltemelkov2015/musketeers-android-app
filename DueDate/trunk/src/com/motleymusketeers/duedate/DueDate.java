@@ -39,13 +39,7 @@ public class DueDate extends Activity {
 	private DatePicker StartDate;
 	private Calendar cal;
 	private final int SAT_OFFSET = 2;
-    private final int SUN_OFFSET = 1;
-//    private int mDay;
-//    private int mMonth;
-//    private int mYear;
-//    private int mDayold;
-//    private int mMonthold;
-//    private int mYearold;
+    private final int SUN_OFFSET = -2;
     private int projectdays;
     
    
@@ -68,12 +62,7 @@ public class DueDate extends Activity {
        }else if (dayofweek == Calendar.SUNDAY) {
        	cal.add(Calendar.DATE, SUN_OFFSET);
        }
-//        this.__getCurrentCalendar();
-//        //old values = current calendar dates
-//        mYearold=mYear;
-//        mMonthold=mMonth;
-//        mDayold=mDay;
-//        
+   
         StartDate.init(cal.get(Calendar.YEAR),cal.get(Calendar.MONTH),cal.get(Calendar.DAY_OF_MONTH),dateListen);
         StartDateText.setText(String.format("%1$ta, %1$te %1$tb %1$ty", cal));
 
