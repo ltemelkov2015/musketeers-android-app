@@ -38,8 +38,8 @@ public class DueDate extends Activity {
 	private TextView StartDateText;
 	private DatePicker StartDate;
 	private Calendar cal;
-	private final int SAT_OFFSET = 2;
-    private final int SUN_OFFSET = -2;
+	private final int SAT_OFFSET = 2;// Offset allows user to go from Friday to Monday
+    private final int SUN_OFFSET = -2;//goes from Monday to Friday
     private int projectdays;
     
    
