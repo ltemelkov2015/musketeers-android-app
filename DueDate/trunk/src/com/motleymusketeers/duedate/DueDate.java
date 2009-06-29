@@ -19,12 +19,13 @@
 
 package com.motleymusketeers.duedate;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
+
 import android.app.Activity;
 import android.os.Bundle;
-import android.view.KeyEvent;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
-//import android.view.View.OnKeyListener;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -62,12 +63,10 @@ public class DueDate extends Activity {
        }else if (dayofweek == Calendar.SUNDAY) {
        	cal.add(Calendar.DATE, SUN_OFFSET);
        }
-   
+        // Initialize datepicker 
         StartDate.init(cal.get(Calendar.YEAR),cal.get(Calendar.MONTH),cal.get(Calendar.DAY_OF_MONTH),dateListen);
         StartDateText.setText(String.format("%1$ta, %1$te %1$tb %1$ty", cal));
 
-        
-       
         View.OnKeyListener onKeyListener = new View.OnKeyListener() {
 			public boolean onKey(View view, int keyCode, KeyEvent event) {
 				if ((KeyEvent.KEYCODE_0 <= keyCode && keyCode <= KeyEvent.KEYCODE_9)
@@ -197,13 +196,23 @@ public class DueDate extends Activity {
             
 		public void onDateChanged(DatePicker view, int year,
                     int monthOfYear, int dayOfMonth){
-		    	
-				cal.set(year, monthOfYear,dayOfMonth);
+			//inherited from : Issue 2081 - android - Error in DatePicker Time - days beyond the end of the month - Google Code
+			//http://code.google.com/p/android/issues/detail?id=2081
+			//This is a check to make sure that you can't pick more days than exist in a month. E.g. you can't pick April 31st
+				cal = new GregorianCalendar(year, monthOfYear, 1);
+				int max = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
+				if (dayOfMonth > max) {
+					view.updateDate(year, monthOfYear, max);
+					cal.set(year, monthOfYear,max);
+				} else {
+					view.updateDate(year, monthOfYear, dayOfMonth);
+					cal.set(year, monthOfYear,dayOfMonth);
+				}
+				
 				int dayofweek = cal.get(Calendar.DAY_OF_WEEK);
 				
 				if (dayofweek == Calendar.SATURDAY) 
 					cal.add(Calendar.DATE, SAT_OFFSET);
-				
 				else if (dayofweek == Calendar.SUNDAY) 
 					cal.add(Calendar.DATE, SUN_OFFSET);
 
