@@ -85,6 +85,10 @@ public class DueDate extends Activity {
 								    updatedc = compute_day_date(cal,projectdays); 
 								    Result.setText(String.format("%1$ta, %1$te %1$tb %1$ty", updatedc));
 								  }
+								else // 0 days is not a valid entry
+								  {
+									editText.setText("");
+								  }
 							} catch (Throwable t) {
 								Log.e(TAG, t.getMessage());
 								return false;
