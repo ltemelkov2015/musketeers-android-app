@@ -6,25 +6,21 @@
                 xmlns:android="http://schemas.android.com/apk/res/android">
     <TextView
     android:text="StartDate : "
-    android:layout_width="100dip"
+    android:layout_width="90dip"
     android:layout_height="50dip"
     android:textSize="18sp"
     android:layout_x="10dip"
     android:layout_y="10dip"
-    android:textColor="#00FF77"
-    android:textStyle="bold"
     />
         
     <TextView
     android:id="@+id/TxtView_Start"
-    android:text=""
+    android:text="StartDate"
     android:layout_width="200dip"
     android:layout_height="50dip"
     android:textSize="18sp"
-    android:layout_x="110dip"
+    android:layout_x="100dip"
     android:layout_y="10dip"
-    android:textColor="#FFFFFF"
-    android:textStyle="bold"
     />
     
     <DatePicker 
@@ -33,7 +29,6 @@
     android:layout_height="wrap_content" 
     android:layout_x="10dip"
     android:layout_y="60dip"
-    
     />
 
     <EditText
@@ -45,9 +40,6 @@
     android:layout_x="10dip"
     android:layout_y="200dip"
     android:inputType="number"
-    android:textColor="#0000FF"
-    android:textStyle="bold"
-    
     />
     
     <TextView
@@ -57,49 +49,17 @@
     android:textSize="18sp"
     android:layout_x="220dip"
     android:layout_y="210dip"
-    android:textColor="#00FF00"
-    android:textStyle="bold"
     />
     
-    <!--
-    <EditText
-    android:id="@+id/TxtBox_OffDays"
-    android:layout_width="200dip"
-    android:layout_height="50dip"
-    android:text="Off Days"
-    android:textSize="18sp"
-    android:layout_x="10dip"
-    android:layout_y="250dip"
-    />
-    -->
-    
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="Due Date:   "
-        android:textSize="22sp"
-	    android:layout_x="10dip"
-    	android:layout_y="290dip"
-        android:background="#993300"
-  		android:textColor="#FFFFFF"
-  		android:textStyle="bold" 
-        
-    />
-
-    
-    />
     
     <TextView
     android:id="@+id/TxtView_Result"
-    android:text=""
+    android:text="DueDate"
     android:layout_width="200dip"
     android:layout_height="50dip"
     android:textSize="18sp"
     android:layout_x="10dip"
     android:layout_y="325dip"
-    android:textStyle="bold"
-	android:textColor="#FFFFFF"
-    
     />
 
 </AbsoluteLayout>
