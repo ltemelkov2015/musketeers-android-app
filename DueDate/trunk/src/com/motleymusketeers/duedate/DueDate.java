@@ -22,15 +22,16 @@
 
 package com.motleymusketeers.duedate;
 import java.util.Calendar;
-//import java.util.GregorianCalendar;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 
@@ -42,9 +43,13 @@ public class DueDate extends Activity {
 	private TextView StartDateText;
 	private DatePicker StartDate;
 	private Calendar cal;
+	private ImageButton Add;
+	private ImageButton Sub;
+	
 	private final int SAT_OFFSET = 2;// Offset allows user to go from Saturday to Monday
     private final int SUN_OFFSET = 1;//goes from Sunday to Friday
     private int projectdays;
+    
     
    
 	@Override
@@ -58,7 +63,9 @@ public class DueDate extends Activity {
         StartDateText = (TextView) findViewById(R.id.TxtView_Start);
         Result = (TextView) findViewById(R.id.TxtView_Result);
         cal = Calendar.getInstance();        
-        
+        Add = (ImageButton) findViewById(R.id.Button_Increment);
+        Sub = (ImageButton) findViewById(R.id.Button_Decrement);
+
         //Init the GUI
         int dayofweek = cal.get(Calendar.DAY_OF_WEEK);      
         if (dayofweek == Calendar.SATURDAY) {
@@ -68,7 +75,7 @@ public class DueDate extends Activity {
        }
         // Initialize datepicker 
         StartDate.init(cal.get(Calendar.YEAR),cal.get(Calendar.MONTH),cal.get(Calendar.DAY_OF_MONTH),dateListen);
-        StartDateText.setText(String.format("%1$ta, %1$te %1$tb %1$ty", cal));
+        StartDateText.setText(String.format("%1$tA, %1$td %1$tB %1$ty", cal));
 
         View.OnKeyListener onKeyListener = new View.OnKeyListener() {
 			public boolean onKey(View view, int keyCode, KeyEvent event) {
@@ -77,26 +84,23 @@ public class DueDate extends Activity {
 					
 					if (view instanceof EditText) {
 						EditText editText = (EditText) view;
-						
-						
 						cal.set(StartDate.getYear(), StartDate.getMonth(), StartDate.getDayOfMonth());
 						//update calendar
 						//Without this snippet try  ,say  March21st and then add16 days, march21st is saturday
 						//it needs to be offset here too
 						cal= weekendOffset(cal);
-						
-						Calendar updatedc;
+				        Calendar updatedc;
 						if (editText.equals(WorkingDays)) {
 							try {
 								projectdays = Integer.valueOf(editText.getText().toString());
 								if(projectdays!=0)
 								  {
 								    updatedc = compute_day_date(cal,projectdays); 
-								    Result.setText(String.format("%1$ta, %1$te %1$tb %1$ty", updatedc));
+								    Result.setText(String.format("%1$tA, %1$td %1$tB %1$ty", updatedc));
 								  }
 								else // 0 days is not a valid entry
 								  {
-									editText.setText("");
+									editText.setText("1");
 								  }
 							} catch (Throwable t) {
 								Log.e(TAG, t.getMessage());
@@ -112,6 +116,73 @@ public class DueDate extends Activity {
 			}
 		};
 		WorkingDays.setOnKeyListener(onKeyListener);
+		
+		Add.setOnClickListener(new OnClickListener() {
+		    public void onClick(View v) {
+		        // Perform action on clicks
+		    	int days = 0;
+		    	try {
+		    	days = Integer.valueOf(WorkingDays.getText().toString());
+		    	days = days + 1;
+				WorkingDays.setText(String.format("%d", days));
+		    	} catch (Throwable t) {
+					Log.e(TAG, t.getMessage());
+				}
+		    	
+		    	
+				cal.set(StartDate.getYear(), StartDate.getMonth(), StartDate.getDayOfMonth());
+		        Calendar updatedc;
+				try {
+					projectdays = Integer.valueOf(WorkingDays.getText().toString());
+					if(projectdays!=0)
+					  {
+					    updatedc = compute_day_date(cal,projectdays); 
+					    Result.setText(String.format("%1$tA, %1$td %1$tB %1$ty", updatedc));
+					  }
+					else // 0 days is not a valid entry
+					  {
+						WorkingDays.setText("1");
+					  }
+				} catch (Throwable t) {
+					Log.e(TAG, t.getMessage());
+				}
+		    }
+		});
+		
+		Sub.setOnClickListener(new OnClickListener() {
+		    public void onClick(View v) {
+		        // Perform action on clicks
+		        // Perform action on clicks
+		    	int days = 0;
+		    	try {
+		    	days = Integer.valueOf(WorkingDays.getText().toString());
+		    	days = days - 1;
+		    	if (days < 1)
+		    		days = 1;
+				WorkingDays.setText(String.format("%d", days));
+		    	} catch (Throwable t) {
+					Log.e(TAG, t.getMessage());
+				}
+		    	
+		    	
+				cal.set(StartDate.getYear(), StartDate.getMonth(), StartDate.getDayOfMonth());
+		        Calendar updatedc;
+				try {
+					projectdays = Integer.valueOf(WorkingDays.getText().toString());
+					if(projectdays!=0)
+					  {
+					    updatedc = compute_day_date(cal,projectdays); 
+					    Result.setText(String.format("%1$tA, %1$td %1$tB %1$ty", updatedc));
+					  }
+					else // 0 days is not a valid entry
+					  {
+						WorkingDays.setText("1");
+					  }
+				} catch (Throwable t) {
+					Log.e(TAG, t.getMessage());
+				}
+		    }
+		});
       
 }//onCreate
 	
@@ -204,23 +275,22 @@ public class DueDate extends Activity {
 				
 				cal.set(year,monthOfYear,dayOfMonth);
 				cal= weekendOffset(cal);
-				
+
 				// Update the text but not the DatePicker
-				StartDateText.setText(String.format("%1$ta, %1$te %1$tb %1$ty", cal));
+				StartDateText.setText(String.format("%1$tA, %1$td %1$tB %1$ty", cal));
 				Calendar cc;
                 //Once date is updated , calculate the due date on the fly
 				if(WorkingDays.getText().toString().equals(""))   
-					Result.setText(String.format("%1$ta, %1$te %1$tb %1$ty", cal));
+					Result.setText(String.format("%1$tA, %1$td %1$tB %1$ty", cal));
 				else if(Integer.valueOf(WorkingDays.getText().toString())==0)
-					Result.setText(String.format("%1$ta, %1$te %1$tb %1$ty", cal));
+					Result.setText(String.format("%1$tA, %1$td %1$tB %1$ty", cal));
 				else{
 					projectdays = Integer.valueOf(WorkingDays.getText().toString());
 					cc=compute_day_date(cal,projectdays);
-					Result.setText(String.format("%1$ta, %1$te %1$tb %1$ty", cc));
+					Result.setText(String.format("%1$tA, %1$td %1$tB %1$ty", cc));
 				}
 		}			
         };
-        
         
         //Due to too much usage of this snippet, separate it
         private Calendar weekendOffset(Calendar cc)

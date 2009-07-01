@@ -3,63 +3,74 @@
 <AbsoluteLayout android:id="@+id/AbsoluteLayout" 
                 android:layout_width="fill_parent" 
                 android:layout_height="fill_parent" 
+                android:background="#C8D7E3"                
                 xmlns:android="http://schemas.android.com/apk/res/android">
-    <TextView
-    android:text="StartDate : "
-    android:layout_width="90dip"
-    android:layout_height="50dip"
-    android:textSize="18sp"
-    android:layout_x="10dip"
-    android:layout_y="10dip"
-    />
         
     <TextView
     android:id="@+id/TxtView_Start"
     android:text="StartDate"
-    android:layout_width="200dip"
+    android:layout_width="wrap_content"
     android:layout_height="50dip"
     android:textSize="18sp"
-    android:layout_x="100dip"
+    android:layout_x="30dip"
     android:layout_y="10dip"
+    android:textStyle="bold"
+    android:textColor="#2F4E6F"
     />
     
     <DatePicker 
     android:id="@+id/StartDate"
     android:layout_width="wrap_content" 
     android:layout_height="wrap_content" 
-    android:layout_x="10dip"
+    android:layout_x="30dip"
     android:layout_y="60dip"
     />
+    
+    <ImageButton 
+    android:id="@+id/Button_Decrement"
+    android:src="@drawable/icon_sub"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:scaleType="center"
+    android:layout_x="50dip"
+    android:layout_y="230dip"
+    android:background="@android:color/transparent" 
+    />    
 
     <EditText
     android:id="@+id/TxtBox_WorkingDays"
-    android:layout_width="200dip"
+    android:layout_width="100dip"
     android:layout_height="50dip"
-    android:text=""
+    android:text="1"
     android:textSize="18sp"
-    android:layout_x="10dip"
-    android:layout_y="200dip"
+    android:layout_x="110dip"
+    android:layout_y="230dip"
     android:inputType="number"
+    android:gravity="center_horizontal"
     />
     
-    <TextView
-    android:text="Add Days"
-    android:layout_width="200dip"
-    android:layout_height="50dip"
-    android:textSize="18sp"
+    <ImageButton 
+    android:id="@+id/Button_Increment"
+    android:src="@drawable/icon_add"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:scaleType="center"
     android:layout_x="220dip"
-    android:layout_y="210dip"
-    />
+    android:layout_y="230dip"
+    android:background="@android:color/transparent" 
+    />    
     
     
     <TextView
     android:id="@+id/TxtView_Result"
     android:text="DueDate"
-    android:layout_width="200dip"
+    android:layout_width="wrap_content"
     android:layout_height="50dip"
-    android:textSize="18sp"
-    android:layout_x="10dip"
-    android:layout_y="325dip"
+    android:textSize="24sp"
+    android:layout_x="30dip"
+    android:layout_y="340dip"
+    android:textStyle="bold"
+    android:textColor="#FF6600"
     />
 
 </AbsoluteLayout>
