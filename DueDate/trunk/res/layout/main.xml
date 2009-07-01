@@ -71,6 +71,7 @@
     android:layout_y="340dip"
     android:textStyle="bold"
     android:textColor="#FF6600"
+    
     />
 
 </AbsoluteLayout>

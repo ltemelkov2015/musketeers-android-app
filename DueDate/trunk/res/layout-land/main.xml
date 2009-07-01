@@ -48,6 +48,7 @@
     android:layout_x="180dip"
     android:layout_y="160dip"
     android:inputType="number"
+    android:gravity="center_horizontal"
     />
     
     <ImageButton 
@@ -62,14 +63,13 @@
     
     />
 
-
     <TextView
     android:id="@+id/TxtView_Result"
     android:text="DueDate"
     android:layout_width="wrap_content"
     android:layout_height="50dip"
     android:textSize="24sp"
-    android:layout_x="150dip"
+    android:layout_x="120dip"
     android:layout_y="235dip"
     android:textStyle="bold"
     android:textColor="#FF6600"
