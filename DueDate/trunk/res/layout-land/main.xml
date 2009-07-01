@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<AbsoluteLayout android:id="@+id/AbsoluteLayout" 
+                android:layout_width="fill_parent" 
+                android:layout_height="fill_parent" 
+                android:background="#C8D7E3"
+                xmlns:android="http://schemas.android.com/apk/res/android">
+
+        
+    <TextView
+    android:id="@+id/TxtView_Start"
+    android:text="StartDate"
+    android:layout_width="200dip"
+    android:layout_height="50dip"
+    android:textSize="18sp"
+    android:layout_x="180dip"
+    android:layout_y="5dip"
+    android:textStyle="bold"
+    android:textColor="#2F4E6F"
+    />
+    
+    <DatePicker 
+    android:id="@+id/StartDate"
+    android:layout_width="wrap_content" 
+    android:layout_height="wrap_content" 
+    android:layout_x="100dip"
+    android:layout_y="30dip"    
+    />
+    
+    <ImageButton 
+    android:id="@+id/Button_Decrement"
+    android:src="@drawable/icon_sub"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:scaleType="center"
+    android:layout_x="120dip"
+    android:layout_y="160dip"
+    android:background="@android:color/transparent" 
+    
+    />
+    
+    <EditText
+    android:id="@+id/TxtBox_WorkingDays"
+    android:layout_width="100dip"
+    android:layout_height="50dip"
+    android:text="1"
+    android:textSize="18sp"
+    android:layout_x="180dip"
+    android:layout_y="160dip"
+    android:inputType="number"
+    />
+    
+    <ImageButton 
+    android:id="@+id/Button_Increment"
+    android:src="@drawable/icon_add"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:scaleType="center"
+    android:layout_x="290dip"
+    android:layout_y="160dip"
+    android:background="@android:color/transparent" 
+    
+    />
+
+
+    <TextView
+    android:id="@+id/TxtView_Result"
+    android:text="DueDate"
+    android:layout_width="200dip"
+    android:layout_height="50dip"
+    android:textSize="18sp"
+    android:layout_x="180dip"
+    android:layout_y="235dip"
+    android:textStyle="bold"
+    android:textColor="#FF6600"
+    />
+    
+
+
+</AbsoluteLayout>
