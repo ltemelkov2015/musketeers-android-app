@@ -14,6 +14,9 @@
  * --On date changed code fixed so that date picker works up/down to handle properly the dates 
  * --When Edit Text Box is empty , going up the date picker , app crashes -  fixed
  * --When user enters "0" the result Due Date lags by 1 day-fixed!
+ * --July 01 2009 added by Lachezar Temelkov
+ * Bug: when the date follows on a weekend, the edit box listener was updating the calendar
+ *  from the data picker.A weekend offset needed to be added to the edit Text listener!
  */
 
 
@@ -74,8 +77,15 @@ public class DueDate extends Activity {
 					
 					if (view instanceof EditText) {
 						EditText editText = (EditText) view;
+						
+						
 						cal.set(StartDate.getYear(), StartDate.getMonth(), StartDate.getDayOfMonth());
-				        Calendar updatedc;
+						//update calendar
+						//Without this snippet try  ,say  March21st and then add16 days, march21st is saturday
+						//it needs to be offset here too
+						cal= weekendOffset(cal);
+						
+						Calendar updatedc;
 						if (editText.equals(WorkingDays)) {
 							try {
 								projectdays = Integer.valueOf(editText.getText().toString());
@@ -180,12 +190,7 @@ public class DueDate extends Activity {
         
         totaldays = projectdays-1 + (padding*2); //assumes that the project starts today 
         c.add(Calendar.DATE, totaldays);
-        dayofweek = c.get(Calendar.DAY_OF_WEEK);
-        if (dayofweek == Calendar.SATURDAY) {
-        	c.add(Calendar.DATE, SAT_OFFSET);
-        }else if (dayofweek == Calendar.SUNDAY) {
-        	c.add(Calendar.DATE, SUN_OFFSET);
-        }
+        c= weekendOffset(c);
         return c ;
 	}
 
@@ -198,13 +203,8 @@ public class DueDate extends Activity {
                     int monthOfYear, int dayOfMonth){
 				
 				cal.set(year,monthOfYear,dayOfMonth);
-				int dayofweek = cal.get(Calendar.DAY_OF_WEEK);
+				cal= weekendOffset(cal);
 				
-				if (dayofweek == Calendar.SATURDAY) 
-					cal.add(Calendar.DATE, SAT_OFFSET);
-				else if (dayofweek == Calendar.SUNDAY) 
-					cal.add(Calendar.DATE, SUN_OFFSET);
-
 				// Update the text but not the DatePicker
 				StartDateText.setText(String.format("%1$ta, %1$te %1$tb %1$ty", cal));
 				Calendar cc;
@@ -220,6 +220,20 @@ public class DueDate extends Activity {
 				}
 		}			
         };
+        
+        
+        //Due to too much usage of this snippet, separate it
+        private Calendar weekendOffset(Calendar cc)
+        {
+        	int dayofweek;
+        	dayofweek= cc.get(Calendar.DAY_OF_WEEK);
+        	if (dayofweek == Calendar.SATURDAY) 
+				cc.add(Calendar.DATE, SAT_OFFSET);
+			else if (dayofweek == Calendar.SUNDAY) 
+				cc.add(Calendar.DATE, SUN_OFFSET);
+        	return cc;
+        	
+        }
 }
 	
 
