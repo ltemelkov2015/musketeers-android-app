@@ -126,7 +126,7 @@ public class DueDate extends Activity {
 		    	days = days + 1;
 				WorkingDays.setText(String.format("%d", days));
 		    	} catch (Throwable t) {
-					Log.e(TAG, t.getMessage());
+//					Log.e(TAG, t.getMessage());
 				}
 		    	
 		    	
@@ -161,7 +161,7 @@ public class DueDate extends Activity {
 		    		days = 1;
 				WorkingDays.setText(String.format("%d", days));
 		    	} catch (Throwable t) {
-					Log.e(TAG, t.getMessage());
+//					Log.e(TAG, t.getMessage());
 				}
 		    	
 		    	
@@ -179,7 +179,7 @@ public class DueDate extends Activity {
 						WorkingDays.setText("1");
 					  }
 				} catch (Throwable t) {
-					Log.e(TAG, t.getMessage());
+//					Log.e(TAG, t.getMessage());
 				}
 		    }
 		});
