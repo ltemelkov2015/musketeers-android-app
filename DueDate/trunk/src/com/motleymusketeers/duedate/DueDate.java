@@ -131,6 +131,7 @@ public class DueDate extends Activity {
 		    	
 		    	
 				cal.set(StartDate.getYear(), StartDate.getMonth(), StartDate.getDayOfMonth());
+				cal= weekendOffset(cal);
 		        Calendar updatedc;
 				try {
 					projectdays = Integer.valueOf(WorkingDays.getText().toString());
@@ -166,6 +167,7 @@ public class DueDate extends Activity {
 		    	
 		    	
 				cal.set(StartDate.getYear(), StartDate.getMonth(), StartDate.getDayOfMonth());
+				cal= weekendOffset(cal);
 		        Calendar updatedc;
 				try {
 					projectdays = Integer.valueOf(WorkingDays.getText().toString());
