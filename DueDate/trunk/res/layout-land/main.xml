@@ -15,7 +15,6 @@
     android:textSize="18sp"
     android:layout_x="120dip"
     android:layout_y="5dip"
-    android:textStyle="bold"
     android:textColor="#2F4E6F"
     />
     
@@ -71,7 +70,6 @@
     android:textSize="24sp"
     android:layout_x="120dip"
     android:layout_y="235dip"
-    android:textStyle="bold"
     android:textColor="#FF6600"
     />
     
