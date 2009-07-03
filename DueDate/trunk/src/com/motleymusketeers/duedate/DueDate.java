@@ -76,6 +76,22 @@ public class DueDate extends Activity {
         // Initialize datepicker 
         StartDate.init(cal.get(Calendar.YEAR),cal.get(Calendar.MONTH),cal.get(Calendar.DAY_OF_MONTH),dateListen);
         StartDateText.setText(String.format("%1$tA, %1$td %1$tB %1$ty", cal));
+        cal.set(StartDate.getYear(), StartDate.getMonth(), StartDate.getDayOfMonth());
+        Calendar updatedc;
+		try {
+			projectdays = Integer.valueOf(WorkingDays.getText().toString());
+			if(projectdays!=0)
+			  {
+			    updatedc = compute_day_date(cal,projectdays); 
+			    Result.setText(String.format("%1$tA, %1$td %1$tB %1$ty", updatedc));
+			  }
+			else // 0 days is not a valid entry
+			  {
+				WorkingDays.setText("1");
+			  }
+		} catch (Throwable t) {
+			Log.e(TAG, t.getMessage());
+		}
 
         View.OnKeyListener onKeyListener = new View.OnKeyListener() {
 			public boolean onKey(View view, int keyCode, KeyEvent event) {
@@ -131,7 +147,6 @@ public class DueDate extends Activity {
 		    	
 		    	
 				cal.set(StartDate.getYear(), StartDate.getMonth(), StartDate.getDayOfMonth());
-				cal= weekendOffset(cal);
 		        Calendar updatedc;
 				try {
 					projectdays = Integer.valueOf(WorkingDays.getText().toString());
@@ -167,7 +182,6 @@ public class DueDate extends Activity {
 		    	
 		    	
 				cal.set(StartDate.getYear(), StartDate.getMonth(), StartDate.getDayOfMonth());
-				cal= weekendOffset(cal);
 		        Calendar updatedc;
 				try {
 					projectdays = Integer.valueOf(WorkingDays.getText().toString());
@@ -262,7 +276,7 @@ public class DueDate extends Activity {
         
         
         totaldays = projectdays-1 + (padding*2); //assumes that the project starts today 
-        c.add(Calendar.DATE, totaldays);
+        c.add(Calendar.DATE, totaldays + 1);// if project starts today it ends tomorrow
         c= weekendOffset(c);
         return c ;
 	}
