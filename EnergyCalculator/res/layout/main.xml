@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    android:gravity="center">
+
+    <TextView 
+    	android:id="@+id/label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="10pt"
+        android:text="Amount of your monthly energy bill ($)"
+        android:gravity="center"/>
+    
+    <EditText 
+    	android:id="@+id/entry" 
+    	android:layout_width="wrap_content" 
+    	android:layout_height="wrap_content" 
+    	android:background="@android:drawable/editbox_background" 
+    	android:textSize="10pt" 
+    	android:inputType="number"/>
+    
+    <TextView
+        android:id="@+id/label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="10pt"
+        android:text="Energy used (kWh)"/>
+
+    <EditText
+        android:id="@+id/entry"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:drawable/editbox_background"
+        android:textSize="10pt" 
+        android:inputType="number"/>   
+          
+    <TextView
+        android:id="@+id/label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="10pt"
+        android:text="Bill date"/>       
+           
+    <TextView 
+    	android:id="@+id/dateDisplay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="10pt"
+        android:text=""/>
+
+    <Button 
+    	android:id="@+id/pickDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Change the date"
+        android:textSize="10pt"/>
+        
+    <TextView 
+    	android:id="@+id/space"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20pt"
+        android:text=""/>
+        
+	<Button
+        android:id="@+id/ok"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="10pt"
+        android:text="OK"/>
+
+</LinearLayout>
